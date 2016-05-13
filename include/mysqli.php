@@ -8,6 +8,7 @@ define( 'DB_COLLATE', 'utf8_general_ci' );//照合順序
 
 //mysqliクラスのオブジェクトを作成
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+mysqli_set_charset($mysqli, DB_CHARSET);
 //エラーが発生したら
 if ($mysqli->connect_error){
   print("接続失敗：" . $mysqli->connect_error);
