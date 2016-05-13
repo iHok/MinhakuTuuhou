@@ -1,59 +1,85 @@
+<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.min.js"></script>
+<style>
+[v-cloak] {
+    display: none;
+}
+</style>
+
+<script type="text/javascript"
+ src="http://maps.google.com/maps/api/js?libraries=adsense&sensor=false&language=ja"></script>
+<!--function initializeで地図の初期画面構成を設定-->
+
+
+	<script type="text/javascript" src="js/map.js"></script>
+	<script type="text/javascript" src="js/map_select.js"></script>
+<p>地図上で目的地をクリックすると座標・住所を取得できます。
+
+<div id="map_canvas" style="width:100%; height:500px"></div>
+
+<table border id="main_list">
+<tr><th>id</th><th>緯度</th><th>経度</th><th>ズーム度</th><th>住所</th><th>投稿日</th><th>削除</th></tr>
+<tr v-for="item in items"><th>{{ item.id }}</th><th>{{ item.ido }}</th><th>{{ item.keido }}</th><th>{{ item.zoom_level }}</th><th>{{ item.address }}</th><th><input type="button" id="mapView" value="表示" onclick="setPoint({{ item.ido }},{{ item.keido }},{{ item.zoom_level }})" /></th><th>削除のリンク予定</th></tr>
+</table>
+
+<script>
+var mainlist = new Vue({
+	  el: '#main_list',
+	  data: {
+	    items: [
 <?php
 
-if (isset($_POST['id_ido']))
-{
-    //ここに何かしらの処理を書く（DB登録やファイルへの書き込みなど）
+$page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
+//datasテーブルから日付の降順でデータを取得
 
-	$query = "INSERT INTO map (ido , keido, zoom_level , address) VALUES (?,?, ?, ?)";
-	$stmt = $mysqli->prepare($query);
-	//$_POST["name"]に名前が、$_POST["message"]に本文が格納されているとする。
-	//?の位置に値を割り当てる
+		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+		try {
+//		    $mysqli = new mysqli('localhost', 'root', '', 'testdb');
+//		    $mysqli->set_charset('utf8');
+		    	$rows = $mysqli->query("SELECT * FROM map ORDER BY created DESC LIMIT 10 OFFSET ". $page);
+//		    $rows = $mysqli->query("SELECT * FROM map ORDER BY created DESC LIMIT 10 OFFSET ". $page);
+		    	$length = mysqli_num_rows($rows);    // 追加
+		    $no = 0;    // 追加
 
-	$stmt->bind_param('ddis', $_POST['id_ido'], $_POST['id_keido'], $_POST['id_level'], $_POST['id_address']);
-	//実行
-	$stmt->execute();
+		} catch (mysqli_sql_exception $e) {
+		    $error = $e->getMessage();
+		}
+		//header('Content-Type: text/html; charset=utf-8');
+		if (isset($error)){
+			h($error);
+		}else{
+			foreach ($rows as $row){ ?>
+				{ id: '<?=h($row['id']);
+				?>',ido: '<?=h($row['ido']);
+				?>',keido: '<?=h($row['keido']);
+				?>',zoom_level: '<?=h($row['zoom_level']);
+				?>',address: '<?=h($row['address']);
+				?>' }<?php $no++;if($no !== $length){echo ",";}?>
 
-	echo $_POST['id_ido'];
-}
-else
-{
-//    echo 'The parameter of "request" is not found.';
-}
-?>
-<table border>
-<tr><th>id</th><th>name</th><th>title</th><th>message</th><th>category</th><th>filename</th><th>投稿日</th><th>削除</th></tr>
+<?php }
+		} ?>
+
+	    ]
+	  }
+	})
+</script>
 
 <?php
 
+$paging = (checkGet("page")) ? ($_GET['page']) * 1 : 1;
 
-if(isset($_POST['id_ido'])){
-	$categorySearch = checkGet("category");
-	$result = $mysqli->query("SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC LIMIT 20 OFFSET ". $page);
-	echo "SELECT * FROM datas WHERE category = '". $categorySearch ."' ORDER BY created DESC";
-}else{
-	$result = $mysqli->query("SELECT * FROM map  LIMIT 20");
-}
-if($result){
-	//1行ずつ取り出し
-	while($row = $result->fetch_object()){
-		//エスケープして表示
-		$id = htmlspecialchars($row->id);
-		$name = htmlspecialchars($row->ido);
-		$title = htmlspecialchars($row->keido);
-		$message = htmlspecialchars($row->zoom_level);
-		$category = htmlspecialchars($row->address);
-		print("<tr>
-	<td><a href='index.php?id=$id&layout=post'>$id</a></td>
-	<td>$name</td>
-	<td>$title</td>
-	<td>$message</td>
-	<td>$category</td>
-	<td><a href='index.php?id=$id&layout=delete'>削除</a></td>
-	</tr>
-	");}
-}
-?>
-
-
-</table></body>
-</html>
+    	$result = $mysqli->query("SELECT COUNT(*) AS page_count FROM map");
+		if($result){
+			//1行ずつ取り出し
+			$row = $result->fetch_object();
+			//エスケープして表示
+			$page_count = htmlspecialchars($row->page_count);
+		}
+		$nextpage = ($paging + 1);
+		$prevpage = ($paging - 1);
+		if(1 <$paging){
+			echo "<a href='?layout=list&page=".$prevpage."'>前のページへ</a>　";
+		}
+		if($paging * 10 < $page_count){
+			echo "<a href='?layout=list&page=".$nextpage."'>次のページへ</a>";
+		}
+		?>

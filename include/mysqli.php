@@ -13,5 +13,3 @@ if ($mysqli->connect_error){
   print("接続失敗：" . $mysqli->connect_error);
   exit();
 }
-
-$mysqlic = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);

@@ -7,7 +7,9 @@ require_once __DIR__.'/include/mysqli.php';
     function CheckPost($name) {
         return filter_input(INPUT_POST, $name);
     }
-
+    function h($str) {
+    	return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+    }
 	$action = CheckGet("action");
 	if($action) {
 		$flag = false;
