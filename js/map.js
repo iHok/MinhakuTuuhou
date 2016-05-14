@@ -43,10 +43,10 @@ function initialize() {
   geocoder.geocode({ 'location': Marker.getPosition()},
      function(results, status) {
    if (status == google.maps.GeocoderStatus.OK && results[0]){
-     document.getElementById('id_address').value =
+     document.getElementById('hidden_address').value =
          results[0].formatted_address.replace(/^日本, /, '');
    }else{
-     document.getElementById('id_address').value =
+     document.getElementById('hidden_address').value =
        "Geocode 取得に失敗しました";
     alert("Geocode 取得に失敗しました reason: "
            + status);
@@ -56,8 +56,8 @@ function initialize() {
 
 //HTMLtagを更新
  function infotable(ido,keido,level){
-  document.getElementById('id_ido').value = ido;
-  document.getElementById('id_keido').value = keido;
-  document.getElementById('id_level').value = level;
+  document.getElementById('hidden_ido').value = ido;
+  document.getElementById('hidden_keido').value = keido;
+  document.getElementById('hidden_zoom').value = level;
  };
 };

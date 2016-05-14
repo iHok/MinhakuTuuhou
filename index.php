@@ -12,14 +12,14 @@ require_once __DIR__.'/include/mysqli.php';
     }
 	$action = CheckGet("action");
 	if($action) {
-		$flag = false;
 		require __DIR__.'/action.php';
 	}
 ?>
 <?php
 	$layout = CheckGet("layout");
-	if($layout) {
-		$flag = false;
+	if($layout === "none") {
+
+	} elseif ($layout) {
 		require __DIR__.'/layout.php';
 	} else {
 		require __DIR__.'/layout.php';

@@ -1,4 +1,4 @@
-    $(document).ready(function()
+$(document).ready(function()
     {
 
         /**
@@ -6,11 +6,16 @@
          */
         $('#send').click(function()
         {
-            //POSTメソッドで送るデータを定義します var data = {パラメータ名 : 値};
-            var data = {id_ido : $('#id_ido').val(),
-            			id_keido : $('#id_keido').val(),
-            			id_level : $('#id_level').val(),
-            			id_address : $('#id_address').val()};
+        	alert($('#hidden_ido').val());
+        	//POSTメソッドで送るデータを定義します var data = {パラメータ名 : 値};
+            var data = {user_name : $('#user_name').val(),
+            			user_url : $('#user_url').val(),
+	        			user_comment : $('#user_comment').val(),
+	        			user_password : $('#user_password').val(),
+	        			hidden_ido : $('#hidden_ido').val(),
+	        			hidden_keido : $('#hidden_keido').val(),
+	        			hidden_zoom : $('#hidden_zoom').val(),
+            			hidden_address : $('#hidden_address').val()};
 
             /**
              * Ajax通信メソッド
@@ -30,7 +35,7 @@
                     //successのブロック内は、Ajax通信が成功した場合に呼び出される
 
                     //PHPから返ってきたデータの表示
-//                    alert(data);
+                    alert($('#user_name').val());
                 },
                 /**
                  * Ajax通信が失敗した場合に呼び出されるメソッド
@@ -46,7 +51,6 @@
                     alert('Error : ' + errorThrown);
                 }
             });
-
             //サブミット後、ページをリロードしないようにする
             return false;
         });

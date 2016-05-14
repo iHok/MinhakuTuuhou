@@ -1,18 +1,12 @@
+<p><a href="index.php">登録はこちら</a></p>
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.min.js"></script>
+	<script type="text/javascript" src="js/map_select.js"></script>
 <style>
 [v-cloak] {
     display: none;
 }
 </style>
-
-<script type="text/javascript"
- src="http://maps.google.com/maps/api/js?libraries=adsense&sensor=false&language=ja"></script>
-<!--function initializeで地図の初期画面構成を設定-->
-
-
-	<script type="text/javascript" src="js/map.js"></script>
-	<script type="text/javascript" src="js/map_select.js"></script>
-<p>地図上で目的地をクリックすると座標・住所を取得できます。
 
 <div id="map_canvas" style="width:100%; height:500px"></div>
 
@@ -29,14 +23,11 @@ var mainlist = new Vue({
 <?php
 
 $page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
-//datasテーブルから日付の降順でデータを取得
+//mapテーブルから日付の降順でデータを取得
 
 		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		try {
-//		    $mysqli = new mysqli('localhost', 'root', '', 'testdb');
-//		    $mysqli->set_charset('utf8');
 		    	$rows = $mysqli->query("SELECT * FROM map ORDER BY created DESC LIMIT 10 OFFSET ". $page);
-//		    $rows = $mysqli->query("SELECT * FROM map ORDER BY created DESC LIMIT 10 OFFSET ". $page);
 		    	$length = mysqli_num_rows($rows);    // 追加
 		    $no = 0;    // 追加
 
@@ -49,10 +40,10 @@ $page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
 		}else{
 			foreach ($rows as $row){ ?>
 				{ id: '<?=h($row['id']);
-				?>',ido: '<?=h($row['ido']);
-				?>',keido: '<?=h($row['keido']);
-				?>',zoom_level: '<?=h($row['zoom_level']);
-				?>',address: '<?=h($row['address']);
+				?>',ido: '<?=h($row['hidden_ido']);
+				?>',keido: '<?=h($row['hidden_keido']);
+				?>',zoom_level: '<?=h($row['hidden_zoom']);
+				?>',address: '<?=h($row['hidden_address']);
 				?>' }<?php $no++;if($no !== $length){echo ",";}?>
 
 <?php }
