@@ -6,7 +6,6 @@ $(document).ready(function()
          */
         $('#send').click(function()
         {
-        	alert($('#hidden_ido').val());
         	//POSTメソッドで送るデータを定義します var data = {パラメータ名 : 値};
             var data = {user_name : $('#user_name').val(),
             			user_url : $('#user_url').val(),
@@ -35,7 +34,8 @@ $(document).ready(function()
                     //successのブロック内は、Ajax通信が成功した場合に呼び出される
 
                     //PHPから返ってきたデータの表示
-                    alert($('#user_name').val());
+                    //alert($('#user_name').val()+"を保存しました。");
+                	alert(data);
                 },
                 /**
                  * Ajax通信が失敗した場合に呼び出されるメソッド
