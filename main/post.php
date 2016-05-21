@@ -8,15 +8,16 @@
 <form method="post">
 <table style="width:500px;border:0;" >
 <tr><td>建物名</td><td><input id="user_name" type="text"/></td></tr>
-<tr><td>URL</td><td><input id="user_url" type="text" /></td></tr>
-<tr><td>自由記入欄</td><td><textarea id="user_comment" type="" /></textarea></td></tr>
+<tr><td>民泊募集のURL</td><td><input id="user_url" type="text"/></td></tr>
+<tr><td>自由記入欄</td><td><textarea id="user_comment" type="text" /></textarea></td></tr>
 <tr><td>パスワード</td><td><input id="user_password" type="text" /></td></tr>
-<tr><td>緯度</td><td><input id="hidden_ido" type="text" /></td></tr>
-<tr><td>経度</td><td><input id="hidden_keido" type="text" /></td></tr>
-<tr><td>ズーム</td><td><input id="hidden_zoom" type="text" /></td></tr>
-<tr><td>住所</td><td><input id="hidden_address" type="text" /></td></tr>
+<tr><td>地図の選択</td><td><span id="map_selected">選択されていません</span></td></tr>
 </table>
-<p><input id="send" value="送信" type="submit" /></p>
+<input id="hidden_ido" type="hidden" />
+<input id="hidden_keido" type="hidden" />
+<input id="hidden_zoom" type="hidden" />
+<input id="hidden_address" type="hidden" />
+<p><input id="send" value="送信" type="submit" onclick="func_send()"/></p>
 </form>
 <br>
 <a href="http://www.google-mapi.com/company.shtml" target="blank">

@@ -1,11 +1,10 @@
 $(document).ready(function()
     {
 
-        /**
-         * 送信ボタンクリック
-         */
+          //送信ボタンクリック
         $('#send').click(function()
         {
+		if($('#user_name').val() && $('#user_url').val() && $('#hidden_ido').val() && $('#hidden_keido').val() && $('#hidden_zoom').val() && $('#hidden_address').val()){
         	//POSTメソッドで送るデータを定義します var data = {パラメータ名 : 値};
             var data = {user_name : $('#user_name').val(),
             			user_url : $('#user_url').val(),
@@ -51,7 +50,10 @@ $(document).ready(function()
                     alert('Error : ' + errorThrown);
                 }
             });
-            //サブミット後、ページをリロードしないようにする
+		} else {
+            alert('必須項目を入力してください');
+		}
+		//サブミット後、ページをリロードしないようにする
             return false;
         });
     });

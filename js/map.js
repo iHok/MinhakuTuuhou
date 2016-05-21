@@ -12,6 +12,16 @@ function initialize() {
  map = new google.maps.Map
  (document.getElementById("map_canvas"),opts);
 
+ //POIを消す
+ var styleOptions = [{
+     featureType: "poi",
+     elementType: "labels",
+     stylers: [
+         { visibility: "off" }
+     ]}
+ ];
+ map.setOptions({styles: styleOptions});
+
 //地図上でクリックするとマーカーを表示させ、マーカーは移動可能とするイベント登録
  google.maps.event.addListener(map, 'click',
  function(event) {
@@ -59,5 +69,6 @@ function initialize() {
   document.getElementById('hidden_ido').value = ido;
   document.getElementById('hidden_keido').value = keido;
   document.getElementById('hidden_zoom').value = level;
+  document.getElementById('map_selected').innerHTML = "選択されました";
  };
 };

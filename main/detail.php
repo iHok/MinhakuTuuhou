@@ -1,3 +1,31 @@
+<?php
+
+$id = $_GET['id']; # $v1=30
+?>
+
+
+
+	<ul class="list-group">
+    <br>
+    <?php echo("$id"); ?> を削除します。<br>よろしいですか？
+    <form action="index.php?id=<?php echo("$id"); ?>&action=delete" method = "POST">
+		<button>削除する。</button>
+	</form>
+	</ul>
+</div>
+        </form>
+<?php
+$text = "戻る";
+// リファラ値がなければ<a>タグを挿入しない
+if (empty($_SERVER['HTTP_REFERER'])) {
+//  echo $text;
+}
+// リファラ値があれば<a>タグ内へ
+else {
+  echo '<a href="' . $_SERVER['HTTP_REFERER'] . '">' . $text . "</a>";
+}
+?>
+
 <p><a href="index.php">登録はこちら</a></p>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.min.js"></script>
@@ -11,8 +39,8 @@
 <div id="map_canvas" style="width:100%; height:500px"></div>
 
 <table border id="main_list">
-<tr><th>id</th><th>建物名</th><th>民泊募集のURL</th><th>自由記入欄（抜粋）</th><th>投稿日</th><th>削除</th></tr>
-<tr v-for="item in items"><td>{{ item.id }}</td><td>{{ item.user_name }}</td><td>{{ item.user_url }}</td><td>{{ item.user_comment }}</td><td><input type="button" id="mapView" value="表示" onclick="setPoint({{ item.hidden_ido }},{{ item.hidden_keido }},{{ item.hidden_zoom }})" /></td><td><form action="/tofoo/action/delete.php" method="post"><input type="hidden" name="id" value="{{ item.id }}"><input type="password" name="password"><input type="submit" name="delete" value="削除" /></form></td></tr>
+<tr><th>id</th><th>緯度</th><th>経度</th><th>ズーム度</th><th>住所</th><th>投稿日</th><th>削除</th></tr>
+<tr v-for="item in items"><th>{{ item.id }}</th><th>{{ item.ido }}</th><th>{{ item.keido }}</th><th>{{ item.zoom_level }}</th><th>{{ item.address }}</th><th><input type="button" id="mapView" value="表示" onclick="setPoint({{ item.ido }},{{ item.keido }},{{ item.zoom_level }})" /></th><th><form action="/tofoo/action/delete.php" method="post"><input type="hidden" name="id" value="{{ item.id }}"><input type="password" name="password"><input type="submit" value="削除" name="delete" /><form></th></tr>
 </table>
 
 <script>
@@ -40,12 +68,10 @@ $page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
 		}else{
 			foreach ($rows as $row){ ?>
 				{ id: '<?=h($row['id']);
-				?>',user_name: '<?=h($row['user_name']);
-				?>',user_url: '<?=h($row['user_url']);
-				?>',user_comment: '<?=h($row['user_comment']);
-				?>',hidden_ido: '<?=h($row['hidden_ido']);
-				?>',hidden_keido: '<?=h($row['hidden_keido']);
-				?>',hidden_zoom: '<?=h($row['hidden_zoom']);
+				?>',ido: '<?=h($row['hidden_ido']);
+				?>',keido: '<?=h($row['hidden_keido']);
+				?>',zoom_level: '<?=h($row['hidden_zoom']);
+				?>',address: '<?=h($row['hidden_address']);
 				?>' }<?php $no++;if($no !== $length){echo ",";}?>
 
 <?php }
