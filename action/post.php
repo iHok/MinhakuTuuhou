@@ -2,7 +2,7 @@
 
     //ここに何かしらの処理を書く（DB登録やファイルへの書き込みなど）
 
-	$status = "none";
+	$status = "";
 	$query = "INSERT INTO map (user_name, user_url, user_comment, user_password, hidden_ido , hidden_keido, hidden_zoom , hidden_address) VALUES (? , ? , ? , ? , ? , ? , ? , ?)";
 
 
@@ -20,8 +20,8 @@
 	$stmt->bind_param('ssssddis', $_POST['user_name'], $_POST['user_url'], $_POST['user_comment'], $password, $_POST['hidden_ido'], $_POST['hidden_keido'], $_POST['hidden_zoom'], $_POST['hidden_address']);
 	//実行
 	if($stmt->execute()){
-		$status = "ok";
+		$status = $_POST['user_name']."を登録しました。";
 	} else {
-		$status = "failed";
+		$status = $_POST['user_name']."を登録に失敗しました。";
 	}
-	echo $_POST['user_name']."を登録しました。";
+	echo $status;

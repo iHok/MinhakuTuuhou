@@ -1,3 +1,4 @@
+<script type="text/javascript" src="js/map.js"></script>
     <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 	<script type="text/javascript" src="js/map_post.js"></script>
 
@@ -19,8 +20,5 @@
 <input id="hidden_address" type="hidden" />
 <p><input id="send" value="送信" type="submit" onclick="func_send()"/></p>
 </form>
-<br>
-<a href="http://www.google-mapi.com/company.shtml" target="blank">
-Google Maps JavaScript API V3の使い方</a>を参考に作成
 </body>
 </html>
