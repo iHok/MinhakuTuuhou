@@ -13,7 +13,19 @@
 
 <table border id="main_list">
 <tr><th>id</th><th>建物名</th><th>民泊募集のURL</th><th>自由記入欄（抜粋）</th><th>投稿日</th><th>削除</th></tr>
-<tr v-for="item in items"><td>{{ item.id }}</td><td>{{ item.user_name }}</td><td>{{ item.user_url }}</td><td>{{ item.user_comment }}</td><td><input type="button" id="mapView" value="表示" onclick="setPoint({{ item.hidden_ido }},{{ item.hidden_keido }},{{ item.hidden_zoom }})" /></td><td><form action="/tofoo/?action=delete&layout=delete" method="post"><input type="hidden" name="id" value="{{ item.id }}"><input type="password" name="password"><input type="submit" name="delete" value="削除" /></form></td></tr>
+	<tr v-for="item in items">
+		<td>{{ item.id }}</td>
+		<td>{{ item.user_name }}</td>
+		<td>{{ item.user_url }}</td>
+		<td>{{ item.user_comment }}</td>
+		<td><input type="button" id="mapView" value="表示" onclick="setPoint({{ item.hidden_ido }},{{ item.hidden_keido }},{{ item.hidden_zoom }})" /></td>
+		<td>
+			<form method="post" action="/tofoo/?action=delete&layout=delete"  name="del_form"
+				onSubmit="return (input=prompt('パスワードを入力して下さい'))==null?false:document.getElementById('password{{ item.id }}').value=input;" >
+			<input type="hidden" name="id" value="{{ item.id }}"><input type="hidden" name="password" id="password{{ item.id }}">
+			<input type="submit" name="delete" value="削除" />
+		</form></td>
+	</tr>
 </table>
 
 <script>
@@ -77,3 +89,4 @@ $paging = (checkGet("page")) ? ($_GET['page']) * 1 : 1;
 			echo "<a href='?layout=list&page=".$nextpage."'>次のページへ</a>";
 		}
 		?>
+
