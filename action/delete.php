@@ -13,6 +13,7 @@ if (isset($_POST["delete"])) {
   if (!empty($_POST["id"])) {
   	// mysqlへの接続
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS);
+    mysqli_set_charset($mysqli, DB_CHARSET);
     if ($mysqli->connect_errno) {
       print('<p>データベースへの接続に失敗しました。</p>' . $mysqli->connect_error);
       exit();

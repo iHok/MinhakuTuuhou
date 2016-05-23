@@ -20,7 +20,7 @@
 		<td>{{ item.user_comment }}</td>
 		<td><input type="button" id="mapView" value="表示" onclick="setPoint({{ item.hidden_ido }},{{ item.hidden_keido }},{{ item.hidden_zoom }})" /></td>
 		<td>
-			<form method="post" action="/tofoo/?action=delete&layout=delete"  name="del_form"
+			<form method="post" action="?action=delete&layout=delete"  name="del_form"
 				onSubmit="return (input=prompt('パスワードを入力して下さい'))==null?false:document.getElementById('password{{ item.id }}').value=input;" >
 			<input type="hidden" name="id" value="{{ item.id }}"><input type="hidden" name="password" id="password{{ item.id }}">
 			<input type="submit" name="delete" value="削除" />
