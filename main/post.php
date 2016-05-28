@@ -20,5 +20,3 @@
 <input id="hidden_address" type="hidden" />
 <p><input id="send" value="送信" type="submit" onclick="func_send()"/></p>
 </form>
-</body>
-</html>
