@@ -10,8 +10,8 @@
 <table style="width:500px;border:0;" >
 <input id="hidden_ido" type="hidden" name="layout" value="search"/>
 <tr><td>検索種類</td><td><select name="type">
-<option value="name" selected>建物名</option>
-<option value="comment">自由記入欄</option>
+<option value="user_name" selected>建物名</option>
+<option value="user_comment">自由記入欄</option>
 <option value="address"></option>
 </select>
 <input name="word" type="text"/></td></tr>

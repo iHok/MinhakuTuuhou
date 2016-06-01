@@ -34,19 +34,22 @@ var mainlist = new Vue({
 	  data: {
 	    items: [
 <?php
+if(checkGet("type") && checkGet("word") ){
+	$searchType = checkGet("type");
+	$searchWord = $_GET["word"] != 'address'  ? $_GET["word"] : 'hidden_address';
 
-$page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
-//mapテーブルから日付の降順でデータを取得
-
+	$page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
+	//mapテーブルから日付の降順でデータを取得
 		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		try {
-		    	$rows = $mysqli->query("SELECT * FROM map ORDER BY created DESC LIMIT 10 OFFSET ". $page);
+				$rows = $mysqli->query("SELECT * FROM map WHERE ". $searchType ."  LIKE '%". $searchWord ."%' ORDER BY created DESC LIMIT 10 OFFSET ". $page);
 		    	$length = mysqli_num_rows($rows);    // 追加
 		    $no = 0;    // 追加
 
 		} catch (mysqli_sql_exception $e) {
 		    $error = $e->getMessage();
 		}
+}
 		//header('Content-Type: text/html; charset=utf-8');
 		if (isset($error)){
 			h($error);
@@ -73,7 +76,7 @@ $page = (checkGet("page")) ? ($_GET['page']-1) * 10 : 0;
 
 $paging = (checkGet("page")) ? ($_GET['page']) * 1 : 1;
 
-    	$result = $mysqli->query("SELECT COUNT(*) AS page_count FROM map");
+    	$result = $mysqli->query("SELECT COUNT(*) AS page_count FROM map WHERE ". $searchType ."  LIKE '%". $searchWord ."%'");
 		if($result){
 			//1行ずつ取り出し
 			$row = $result->fetch_object();
@@ -89,4 +92,5 @@ $paging = (checkGet("page")) ? ($_GET['page']) * 1 : 1;
 			echo "<a href='?layout=list&page=".$nextpage."'>次のページへ</a>";
 		}
 		?>
+
 
