@@ -1,0 +1,94 @@
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+}
+
+
+.bordered th {
+    background-color: #dce9f9;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
+    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+    border-top: none;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;
+}
+
+th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.bordered tr:hover
+{
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.searchTable {
+    border-collapse: collapse;
+    table-layout: auto;
+}
+.searchTable th,
+.searchTable td {
+    border: 1px solid #CCCCCC;
+    text-align: left;
+}
+.searchTable th {
+    background-color: #FFFFFF;
+}
+
+.searchTable p {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+}
+
+.postTable {
+    border-collapse: collapse;
+    table-layout: auto;
+}
+.postTable th,
+.postTable td {
+    border: 1px solid #CCCCCC;
+    text-align: left;
+}
+.postTable th {
+    background-color: #FFFFFF;
+}
+
+.postTable p {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+}
+
+ .limit_width {
+	max-width: 36em;
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.min{
+	width:5em;
+}
+
+.limit_min{
+	width:0em;
+}

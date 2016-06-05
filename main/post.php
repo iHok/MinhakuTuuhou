@@ -7,7 +7,7 @@
 
 <div id="map_canvas" style="width:100%; height:500px"></div>
 <form method="post">
-<table style="width:500px;border:0;" >
+<table id="main_list" class="bordered postTable" width="100%" >
 <tr><td>建物名</td><td><input id="user_name" type="text"/></td></tr>
 <tr><td>民泊募集のURL</td><td><input id="user_url" type="text"/></td></tr>
 <tr><td>自由記入欄</td><td><textarea id="user_comment" type="text" /></textarea></td></tr>

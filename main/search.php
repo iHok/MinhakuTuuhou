@@ -9,17 +9,19 @@
 }
 </style>
 
-<div id="map_canvas" style="width:100%; height:500px"></div>
+<div id="wrapper">
+<div>
+<div id="map_canvas"style="width:100%; height:500px"></div>
+</div>
 
-<table border id="main_list">
-<tr><th>id</th><th>建物名</th><th>民泊募集のURL</th><th>自由記入欄（抜粋）</th><th>投稿日</th><th>削除</th></tr>
-	<tr v-for="item in items">
-		<td>{{ item.id }}</td>
-		<td>{{ item.user_name }}</td>
-		<td>{{ item.user_url }}</td>
-		<td>{{ item.user_comment }}</td>
-		<td><input type="button" id="mapView" value="表示" onclick="setPoint({{ item.hidden_ido }},{{ item.hidden_keido }},{{ item.hidden_zoom }})" /></td>
-		<td>
+<div>
+<table border id="main_list" class="bordered searchTable" width="100%">
+<thead><tr><th>建物名</th><th>民泊募集のURL</th><th>自由記入欄（抜粋）</th><th></th></tr></thead>
+	<tr v-for="item in items"  onclick="setPoint('{{ item.user_name }}','{{ item.user_url }}',{{ item.hidden_ido }},{{ item.hidden_keido }},{{ item.hidden_zoom }})">
+		<td><p class="limit_width">{{ item.user_name }}</p></td>
+		<td><p class="limit_width"><a href="{{ item.user_url }}" target="_blank">{{ item.user_url }}</a></p></td>
+		<td><p class="limit_width">{{ item.user_comment }}</p></td>
+		<td class="limit_min">
 			<form method="post" action="?action=delete&layout=delete"  name="del_form"
 				onSubmit="return (input=prompt('パスワードを入力して下さい'))==null?false:document.getElementById('password{{ item.id }}').value=input;" >
 			<input type="hidden" name="id" value="{{ item.id }}"><input type="hidden" name="password" id="password{{ item.id }}">
@@ -27,6 +29,8 @@
 		</form></td>
 	</tr>
 </table>
+</div>
+
 
 <script>
 var mainlist = new Vue({
@@ -93,4 +97,4 @@ $paging = (checkGet("page")) ? ($_GET['page']) * 1 : 1;
 		}
 		?>
 
-
+</div>
